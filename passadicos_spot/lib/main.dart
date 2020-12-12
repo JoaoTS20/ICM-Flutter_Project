@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import './mapa_screen.dart';
+import './feed_screen.dart';
+import './profile_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -9,6 +13,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Flutter Tabs Demo'),
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.add_location), text: "Map"),
+                Tab(icon: Icon(Icons.article), text: "Feed"),
+                Tab(icon: Icon(Icons.account_circle), text: "Perfil")
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              MapaScreen(),
+              FeedScreen(),
+              ProfileScreen()
+            ],
+          ),
+        ),
+      ),
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -26,7 +52,6 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
