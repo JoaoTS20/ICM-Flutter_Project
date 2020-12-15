@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1067672649093:android:42a61cdb71662af8ca18ec",
+        "android_client_info": {
+          "package_name": "com.example.passadicos_spot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067672649093-tq2sqajvg6ej5pnnm6o2fpsop4vqk6j3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtRYZQkNDE5hMm3l3PxxTUoPlziWq1VaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067672649093-tq2sqajvg6ej5pnnm6o2fpsop4vqk6j3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1067672649093:android:d95844208da79f64ca18ec",
         "android_client_info": {
           "package_name": "com.example.passadicosspot"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1067672649093-5sl8ssfcgmsj28m7ejk1atde04p0gi64.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passadicosspot",
+            "certificate_hash": "7862f6242614bcdf29b8992746d8fd0f2c6c6616"
+          }
+        },
+        {
+          "client_id": "1067672649093-rfv7tqihi8dm15ls4057po7h0vjl8le5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passadicosspot",
+            "certificate_hash": "dc320cdb6524419b487ee08944b4b244b98a11a7"
+          }
+        },
         {
           "client_id": "1067672649093-tq2sqajvg6ej5pnnm6o2fpsop4vqk6j3.apps.googleusercontent.com",
           "client_type": 3

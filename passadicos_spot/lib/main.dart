@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:passadicos_spot/sign_in_screen.dart';
 import './mapa_screen.dart';
 import './feed_screen.dart';
 import './profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 void main() {
   runApp(MyApp());
@@ -11,7 +16,18 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
+  @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Login',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: SignInScreen(),
+    );
+  }
+  /*Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
         length: 3,
@@ -53,7 +69,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
     );
-  }
+  }*/
 }
 
 class MyHomePage extends StatefulWidget {
