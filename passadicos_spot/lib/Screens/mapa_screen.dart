@@ -20,14 +20,33 @@ class MapaScreen extends StatelessWidget {
         zoom: 11.0,
     )
       ),
-        floatingActionButton: Align(
+        /*floatingActionButton: Align(
           child: FloatingActionButton(
         onPressed: (null),
         tooltip: 'Add_Image',
         child: Icon(Icons.add))
         ,alignment: Alignment.bottomLeft 
-      )
-      )
+      ),
+      */floatingActionButtonLocation:
+              FloatingActionButtonLocation.startDocked,
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FloatingActionButton(
+                  onPressed: () {},
+                  tooltip: 'Calcular tempo',
+                  child: Icon(Icons.directions_walk),
+                ),
+                FloatingActionButton(
+                  onPressed: () {},
+                  tooltip: 'Add_Image',
+                  child: Icon(Icons.add),
+                )
+              ],
+            ),
+          ))
     );
   }
 }
