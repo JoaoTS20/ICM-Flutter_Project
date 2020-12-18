@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:passadicos_spot/Classes/Users.dart';
 
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,6 +10,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String username;
 String email;
 String imageUrl;
+Users userlogged;
 
 Future<String> signInWithGoogle() async {
   await Firebase.initializeApp();
@@ -36,6 +37,9 @@ Future<String> signInWithGoogle() async {
     username = user.displayName;
     email = user.email;
     imageUrl = user.photoURL;
+
+    userlogged.username= username;
+    //userlogged.tipo = "s";
 
     
 

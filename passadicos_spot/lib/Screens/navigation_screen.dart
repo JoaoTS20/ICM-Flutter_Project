@@ -16,7 +16,7 @@ class NavigationScreen extends StatelessWidget {
       ),
       home: ChangeNotifierProvider<BottomNavigationBarProvider>(
         child: BottomNavigationBarExample(),
-        create: (BuildContext context) => BottomNavigationBarProvider(),
+        create: (BuildContext context) => BottomNavigationBarProvider(), 
       ),
     );
   }
