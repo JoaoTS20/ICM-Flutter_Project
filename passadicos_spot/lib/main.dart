@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:passadicos_spot/sign_in_screen.dart';
-import './mapa_screen.dart';
-import './feed_screen.dart';
-import './profile_screen.dart';
+import 'package:passadicos_spot/Screens/sign_in_screen.dart';
+import 'Screens/mapa_screen.dart';
+import 'Screens/feed_screen.dart';
+import 'Screens/profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

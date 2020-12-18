@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passadicos_spot/sign_in.dart';
-import 'package:passadicos_spot/sign_in_screen.dart';
+import 'package:passadicos_spot/Classes/sign_in.dart';
+import 'package:passadicos_spot/Screens/sign_in_screen.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

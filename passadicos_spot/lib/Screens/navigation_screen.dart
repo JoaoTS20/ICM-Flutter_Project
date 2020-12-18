@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:passadicos_spot/feed_screen.dart';
-import 'package:passadicos_spot/mapa_screen.dart';
-import 'package:passadicos_spot/profile_screen.dart';
+import 'package:passadicos_spot/Screens/feed_screen.dart';
+import 'package:passadicos_spot/Screens/mapa_screen.dart';
+import 'package:passadicos_spot/Screens/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 

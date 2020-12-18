@@ -29,7 +29,7 @@ class _FeedPageState extends State<FeedPage>{
   Widget _buildBody(BuildContext context) {
     // TODO: get actual snapshot from Cloud Firestore
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Imagens').snapshots(),
+      stream: Firestore.instance.collection('Imagens').snapshots(), //Talvez passar para Variável global
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
