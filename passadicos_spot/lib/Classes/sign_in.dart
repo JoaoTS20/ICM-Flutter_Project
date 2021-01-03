@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,18 +29,19 @@ Future<String> signInWithGoogle() async {
   final UserCredential authResult =
   await _auth.signInWithCredential(credential);
   final User user = authResult.user;
-
+  log(user.toString());
   if (user != null) {
     // Checking if email and name is null
     assert(user.email != null);
     assert(user.displayName != null);
     assert(user.photoURL != null);
 
+    log(user.displayName);
     username = user.displayName;
     email = user.email;
     imageUrl = user.photoURL;
 
-    userlogged.username= username;
+    //userlogged.username= username;
     //userlogged.tipo = "s";
 
     
