@@ -29,6 +29,7 @@ dependencies:
   firebase_core: ^0.5.0
   provider: 4.3.2
   cloud_firestore: ^0.14.4
+  firebase_storage: ^4.0.1
   geopoint: ^0.7.1
   permission_handler: ^5.0.1+1
 
