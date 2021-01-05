@@ -12,7 +12,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String username;
 String email;
 String imageUrl;
-Users userlogged;
+User userlogged;
 
 Future<String> signInWithGoogle() async {
   await Firebase.initializeApp();
@@ -40,11 +40,11 @@ Future<String> signInWithGoogle() async {
     username = user.displayName;
     email = user.email;
     imageUrl = user.photoURL;
-
+    userlogged=user;
     //userlogged.username= username;
     //userlogged.tipo = "s";
 
-    
+
 
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);

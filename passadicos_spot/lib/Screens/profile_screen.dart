@@ -4,7 +4,63 @@ import 'package:passadicos_spot/Screens/sign_in_screen.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Column(children: <Widget>[
+      Stack(
+        overflow: Overflow.visible,
+        alignment: Alignment.center,
+        children: <Widget>[
+          Image(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height/4,
+            fit: BoxFit.cover,
+            image: AssetImage(
+              'assets/passadico_do_paiva_fundo.jpg'
+            ),
+          ),
+          Positioned(bottom:-60.0,
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(imageUrl),
+              ),
+          ),
+        ],
+      ),
+      Container(
+
+      child:Align(alignment: Alignment.centerRight,child:RaisedButton(
+        onPressed: () {
+          signOutGoogle();
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return SignInScreen();}), ModalRoute.withName('/'));
+        },
+        color: Colors.lightBlue,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(
+            'Sign Out',
+            style: TextStyle(fontSize: 10, color: Colors.white),
+          ),
+        ),
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30)),
+          )
+        )
+      ),
+      SizedBox(height: 15
+      ),
+      ListTile(
+        title: Center(child:Text(username)),
+        subtitle:Center(child: Text("Tipo de User"),)
+        ),
+      Card(
+        child: ListTile(
+          title: Text("Os seus Posts:"),
+        ),
+      )
+
+    ]);
+    /*return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -70,6 +126,6 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    );*/
   }
 }

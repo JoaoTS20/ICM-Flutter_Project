@@ -49,16 +49,8 @@ class _FeedPageState extends State<FeedPage>{
   }
   Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
     final imagem = Imagem.fromSnapshot(data);
-    final l=imagem.photoURL;
-    /*String x;
-    getImage(l).then((String url){
-      setState(() {
-              x = url;
-              //Image.network(url);
-            });
-    });*/
     return FutureBuilder<dynamic>(
-      future: getImage(l), // function where you call your api
+      future: getImage(imagem.photoURL), // function where you call your api
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {  // AsyncSnapshot<Your object type>
         if( snapshot.connectionState == ConnectionState.waiting){
           return  Container(margin:EdgeInsets.all(8.0), child: LinearProgressIndicator());
@@ -71,7 +63,7 @@ class _FeedPageState extends State<FeedPage>{
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: InkWell(
-                  onTap: () => print("ciao"),
+                  onTap: () => print("ciao"), //Função Para Depois ver a página mais em Detalhe.
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                     children: <Widget>[
