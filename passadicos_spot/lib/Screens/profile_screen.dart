@@ -61,8 +61,7 @@ class ProfileScreen extends StatelessWidget {
           title: Text("Os seus Posts:"),
         ),
       ),
-      //FeedPart()
-
+      Expanded(child: FeedPart())
     ]);
   }
 }
