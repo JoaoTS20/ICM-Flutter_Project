@@ -58,6 +58,7 @@ Future<String> signInWithGoogle() async {
       else{
         print("User ainda não registado!");
         reg=false;
+        tipo_user=null;
       }
 
     });
