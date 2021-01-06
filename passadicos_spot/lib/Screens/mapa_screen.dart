@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:passadicos_spot/Classes/RouteInfo.dart';
+import 'package:passadicos_spot/Screens/preview_screen.dart';
 
 
 
@@ -83,7 +84,11 @@ class MapaScreen extends StatelessWidget {
                   heroTag: "f2",
                   onPressed: () {
                    // Navigator.push(context,MaterialPageRoute(builder: (context) => CameraScreen()));
-                    _imgFromCamera().then((image) => log("bananas"+image.toString()));
+                    _imgFromCamera().then(
+                            (image) => {
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => PreviewScreen(image)))
+                            }
+                    );
                   },
                   tooltip: 'Add_Image',
                   child: Icon(Icons.add),

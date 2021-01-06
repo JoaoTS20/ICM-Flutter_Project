@@ -1,19 +1,25 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatefulWidget {
-  final String imgPath;
-  final String fileName;
-  PreviewScreen({this.imgPath, this.fileName});
+  File img;
+
+  PreviewScreen(File img){
+    this.img = img;
+  }
 
   @override
-  _PreviewScreenState createState() => _PreviewScreenState();
+  _PreviewScreenState createState() => _PreviewScreenState(img);
 }
 
 class _PreviewScreenState extends State<PreviewScreen> {
+  File _img;
+  _PreviewScreenState(File f){
+    _img = f;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,33 +30,28 @@ class _PreviewScreenState extends State<PreviewScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Image.file(File(widget.imgPath),fit: BoxFit.cover,),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: double.infinity,
-                  height: 60,
-                  color: Colors.black,
-                  child: Center(
-                    child: IconButton(
-                      icon: Icon(Icons.share,color: Colors.white,),
-                      onPressed: (){},
-                    ),
+              Image(image: AssetImage(_img.path)),
+              TextField(),
+              Align(alignment: Alignment.centerRight,child:RaisedButton(
+                onPressed: () {
+                    log("it's all coming together");
+                },
+                color: Colors.lightBlue,
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    'Publicar',
+                    style: TextStyle(fontSize: 10, color: Colors.white),
                   ),
                 ),
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              )
               )
             ],
           ),
         )
     );
-  }
-
-  Future getBytes () async {
-    Uint8List bytes = File(widget.imgPath).readAsBytesSync() as Uint8List;
-//    print(ByteData.view(buffer))
-    return ByteData.view(bytes.buffer);
   }
 }
