@@ -30,7 +30,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image(image: AssetImage(_img.path)),
+              Image.file(File(_img.path)),
               TextField(),
               Align(alignment: Alignment.centerRight,child:RaisedButton(
                 onPressed: () {
