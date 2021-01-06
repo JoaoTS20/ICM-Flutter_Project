@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passadicos_spot/Screens/navigation_screen.dart';
 
 class PreviewScreen extends StatefulWidget {
   File img;
@@ -35,6 +36,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
               Align(alignment: Alignment.centerRight,child:RaisedButton(
                 onPressed: () {
                     log("it's all coming together");
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => NavigationScreen()));
                 },
                 color: Colors.lightBlue,
                 child: Padding(
