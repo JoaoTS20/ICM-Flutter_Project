@@ -1,8 +1,12 @@
 import 'dart:collection';
+import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:passadicos_spot/Classes/RouteInfo.dart';
+
 
 
 class MapaScreen extends StatelessWidget {
@@ -34,6 +38,12 @@ class MapaScreen extends StatelessWidget {
     );
     polylinelist.add(polyline);
     return polylinelist;
+  }
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+    return image;
   }
 
   @override
@@ -71,7 +81,10 @@ class MapaScreen extends StatelessWidget {
                 ),
                 FloatingActionButton(
                   heroTag: "f2",
-                  onPressed: () {},
+                  onPressed: () {
+                   // Navigator.push(context,MaterialPageRoute(builder: (context) => CameraScreen()));
+                    _imgFromCamera().then((image) => log("bananas"+image.toString()));
+                  },
                   tooltip: 'Add_Image',
                   child: Icon(Icons.add),
                 )
