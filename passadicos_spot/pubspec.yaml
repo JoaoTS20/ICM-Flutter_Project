@@ -32,6 +32,7 @@ dependencies:
   firebase_core: ^0.5.0
   provider: 4.3.2
   cloud_firestore: ^0.14.4
+  firebase_storage: ^4.0.1
   geopoint: ^0.7.1
   permission_handler: ^5.0.1+1
   image_picker: ^0.6.6+5
@@ -58,6 +59,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - google_logo.png
+     - passadico_do_paiva_fundo.jpg
+     - passadicos_paiva.jpg
      #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:passadicos_spot/main.dart';
 import 'package:passadicos_spot/Classes/sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'navigation_screen.dart';
+import 'option_type_screen.dart';
+
+
 
 class SignInScreen extends StatefulWidget {
   //final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -38,7 +43,14 @@ class _LoginPageState extends State<SignInScreen>{
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
-            return NavigationScreen(); //Aqui talvez mudar para navegation_screen caso seja necessário
+            print("SIgn in");
+            print(tipo_user);
+            if(tipo_user==null){
+              return OptionScreen();
+            }
+            else {
+              return NavigationScreen();
+            }
           },
         ),
       );
@@ -68,32 +80,5 @@ class _LoginPageState extends State<SignInScreen>{
     ),
   );}
 
-  /*Future<String> signInWithGoogle() async {
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-    await googleSignInAccount.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
-
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
-
-    return 'signInWithGoogle succeeded: $user';
-  }
-
-  void signOutGoogle() async{
-    await googleSignIn.signOut();
-
-    print("User Sign Out");
-  }*/
-
 }
+
