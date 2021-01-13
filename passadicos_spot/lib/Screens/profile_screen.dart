@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:passadicos_spot/Classes/sign_in.dart';
 import 'package:passadicos_spot/Screens/sign_in_screen.dart';
+import 'package:passadicos_spot/Screens/info_screen.dart';
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -115,7 +117,7 @@ class _FeedPageState extends State<FeedPart>{
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: InkWell(
-                  onTap: () => print("ciao"), //Função Para Depois ver a página mais em Detalhe.
+                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))), //Função Para Depois ver a página mais em Detalhe.
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                     children: <Widget>[

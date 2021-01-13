@@ -21,15 +21,15 @@ class OptionScreen extends StatelessWidget {
                       },
                       color: Colors.lightBlue,
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Text(
                           'Normal',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
+                          style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                       ),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(60)),
                     ),
                     RaisedButton(
                       onPressed: () {
@@ -38,15 +38,15 @@ class OptionScreen extends StatelessWidget {
                       },
                       color: Colors.lightBlue,
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Text(
                           'Perito',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
+                          style: TextStyle(fontSize: 15, color: Colors.white),
                         ),
                       ),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(60)),
                     )
                   ],),
             )
