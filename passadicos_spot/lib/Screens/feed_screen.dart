@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
+import 'package:passadicos_spot/Screens/info_screen.dart';
 
 class FeedScreen extends StatelessWidget {
 
@@ -63,7 +66,7 @@ class _FeedPageState extends State<FeedPage>{
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: InkWell(
-                  onTap: () => print("ciao"), //Função Para Depois ver a página mais em Detalhe.
+                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))),//print("ciao"), Função Para Depois ver a página mais em Detalhe.
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                     children: <Widget>[
@@ -123,5 +126,6 @@ Future<dynamic> getImage(String l) async {
   return _ref.getDownloadURL();
 
 }
+
 
 

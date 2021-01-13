@@ -52,7 +52,9 @@ class MapaScreen extends StatelessWidget {
     return Container(
       child: Scaffold(
         body: GoogleMap(
+
         onMapCreated: _onMapCreated,
+          myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
         target: _center,
         zoom: 11.0,
