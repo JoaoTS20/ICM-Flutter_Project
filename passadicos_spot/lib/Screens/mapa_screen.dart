@@ -10,8 +10,18 @@ import 'package:passadicos_spot/Screens/preview_screen.dart';
 
 
 
-class MapaScreen extends StatelessWidget {
+class MapaScreen extends StatefulWidget {
+  @override
+  _MapaWidgetState createState() => _MapaWidgetState();
+
+ 
+
+}
+class _MapaWidgetState extends State<MapaScreen>{
   GoogleMapController mapController;
+  bool percorrer=false;
+  int distancia=0;
+
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
 
@@ -51,7 +61,10 @@ class MapaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: GoogleMap(
+        body: Stack(
+          children: <Widget>[ 
+        
+        GoogleMap(
 
         onMapCreated: _onMapCreated,
           myLocationEnabled: true,
@@ -69,16 +82,16 @@ class MapaScreen extends StatelessWidget {
         child: Icon(Icons.add))
         ,alignment: Alignment.bottomLeft 
       ),
-      */floatingActionButtonLocation:
-              FloatingActionButtonLocation.startDocked,
-          floatingActionButton: Padding(
+      *///floatingActionButtonLocation:
+              //FloatingActionButtonLocation.startDocked,
+          Padding(
             padding: const EdgeInsets.all(5.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FloatingActionButton(
                   heroTag: "f1",
-                  onPressed: () {},
+                  onPressed: _percorrerBotton,
                   tooltip: 'Calcular tempo',
                   child: Icon(Icons.directions_walk),
                 ),
@@ -97,7 +110,30 @@ class MapaScreen extends StatelessWidget {
                 )
               ],
             ),
-          ))
+          ),
+        Visibility(
+        visible: (percorrer? true: false),
+        child: Positioned(
+        top: 60,
+        left: 20,
+        child: Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
+      ))
+      ] 
+      )
+    )
     );
   }
+void _percorrerBotton() {
+  setState(() {
+    if (!percorrer) {
+      percorrer = true;
+    } else {
+      percorrer = false;
+    }
+  });
+}
+}
+Widget build_text_percorrer() {
+
+    return Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
 }

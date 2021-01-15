@@ -29,6 +29,12 @@ class _FeedPageState extends State<FeedPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildBody(context),
+        floatingActionButton:FloatingActionButton(
+          heroTag: "f1",
+          onPressed: () {},
+          tooltip: 'Mostrar Aqueles sem identificação dos Animais',
+          child: Icon(Icons.remove),
+        )
     );
   }
   Widget _buildBody(BuildContext context) {
@@ -41,7 +47,6 @@ class _FeedPageState extends State<FeedPage>{
         return _buildList(context, snapshot.data.documents);
       },
     );
-
   }
 
   Widget _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
