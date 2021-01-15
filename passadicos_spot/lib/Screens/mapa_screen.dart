@@ -17,11 +17,13 @@ class MapaScreen extends StatefulWidget {
  
 
 }
+enum Sentidos { FIRST, SECOND}
 class _MapaWidgetState extends State<MapaScreen>{
   GoogleMapController mapController;
   bool percorrer=false;
   int distancia=0;
-
+  String sentido;
+  
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
 
@@ -91,7 +93,33 @@ class _MapaWidgetState extends State<MapaScreen>{
               children: <Widget>[
                 FloatingActionButton(
                   heroTag: "f1",
-                  onPressed: _percorrerBotton,
+                  onPressed: (){ !percorrer ? showDialog( 
+                context: context, 
+                builder: (ctx) => AlertDialog( 
+                  title: Text("Qual o Sentido do Percurso?"), 
+                  //content: Text("You have raised a Alert Dialog Box"), 
+                  actions: <Widget>[ 
+                  SimpleDialogOption(
+                  child: Text('Areinho -> Espiunca'),
+                  onPressed: () {
+                  sentido='Areinho -> Espiunca';
+                  //percorrer=true;
+                  _percorrerBotton();
+                Navigator.of(ctx).pop();
+              },
+            ),
+                  SimpleDialogOption(
+                    child: Text('Espiunca -> Areinho'),
+                    onPressed: () {
+                      sentido='Espiunca -> Areinho';
+                      //percorrer=true;
+                      _percorrerBotton();
+                      Navigator.of(ctx).pop();
+                    },
+                  )
+                  ], 
+                ), 
+              ) : _percorrerBotton();}, //percorrer ? _percorrerBotton : _selectSentido,
                   tooltip: 'Calcular tempo',
                   child: Icon(Icons.directions_walk),
                 ),
@@ -117,12 +145,18 @@ class _MapaWidgetState extends State<MapaScreen>{
         top: 60,
         left: 20,
         child: Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
-      ))
+        )
+      ),
+
       ] 
       )
     )
     );
   }
+
+  
+
+
 void _percorrerBotton() {
   setState(() {
     if (!percorrer) {
