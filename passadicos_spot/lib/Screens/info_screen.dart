@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:intl/intl.dart';
@@ -19,15 +21,18 @@ class InfoScreen extends StatefulWidget {
   @override
   _InfoScreenState createState() => _InfoScreenState(imagem);
 }
+
 class _InfoScreenState extends State<InfoScreen> {
   Imagem _imagem;
   bool editable = false;
   bool editing = false;
   Imagem _imagem_nova;
+  final myController = TextEditingController();
+
   _InfoScreenState(Imagem f){
     _imagem = f;
     log(tipo_user+" "+username);
-    if ((_imagem.especialista != "" && tipo_user == "especialista") || _imagem.especialista == username){
+    if ((_imagem.especialista == "" && tipo_user == "Perito") || _imagem.especialista == username){
       editable = true;
     }
   }
@@ -84,12 +89,18 @@ class _InfoScreenState extends State<InfoScreen> {
                             ),
                             Row(
                               children: [
-                                Card(child: ListTile(title: Text("Animais Identificados") ,subtitle: Text(_imagem_nova.animaisIdentificados.toString())),),
+
+                                Card(child:Container(width: 150 ,child:ListTile(title: Text("Animais Identificados") ,subtitle: Text(_imagem_nova.animaisIdentificados.toString())),),
+                                ),
                                 Row(
                                   children: [
-                                    TextField(),
+                                    Container(width: 125,child:TextField(controller: myController,)),
                                     Align(alignment: Alignment.centerRight,child:RaisedButton(
                                       onPressed: () {
+                                        _imagem_nova.animaisIdentificados.add(myController.text);
+                                        myController.text = "";
+                                        setState(() {
+                                        });
                                       },
                                       color: Colors.lightBlue,
                                       child: Padding(
@@ -112,6 +123,14 @@ class _InfoScreenState extends State<InfoScreen> {
                               children:[
                                 Align(alignment: Alignment.centerRight,child:RaisedButton(
                                   onPressed: () {
+                                    if (listEquals(_imagem_nova.animaisIdentificados,_imagem.animaisIdentificados)){
+                                      log("são iguais");
+                                      return;
+                                    }
+                                    else{
+                                      log("não são iguais");
+                                      uploadAnimals();
+                                    }
                                   },
                                   color: Colors.lightBlue,
                                   child: Padding(
@@ -128,6 +147,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                 ),
                                 Align(alignment: Alignment.centerRight,child:RaisedButton(
                                   onPressed: () {
+                                    editing = false;
+                                    myController.text="";
+                                    setState(() {
+                                    });
                                   },
                                   color: Colors.lightBlue,
                                   child: Padding(
@@ -203,13 +226,31 @@ class _InfoScreenState extends State<InfoScreen> {
       },
     );
   }
+  Future uploadAnimals(){
+    log(_imagem.reference.id+" "+_imagem.reference.path+" "+_imagem.reference.documentID);
+    Firestore.instance.collection("Imagens").doc(_imagem.reference.id).update({
+      "especialista":_imagem_nova.especialista,
+      "animaisIdentificados": _imagem_nova.animaisIdentificados
+    });
+
+    _imagem.especialista = _imagem_nova.especialista;
+    _imagem.animaisIdentificados = _imagem_nova.animaisIdentificados;
+
+    editing = false;
+    setState(() {
+    });
+  }
+
+
+
+
 
   Widget getEditButton(){
     if (editable){
       return Align(alignment: Alignment.centerRight,child:RaisedButton(
         onPressed: () {
           editing = true;
-          _imagem_nova = new Imagem(_imagem.description, username,_imagem.photoURL,_imagem.username, _imagem.animaisIdentificados,_imagem.location, _imagem.dateJson);
+          _imagem_nova = new Imagem(_imagem.description, username,_imagem.photoURL,_imagem.username, List.from(_imagem.animaisIdentificados),_imagem.location, _imagem.dateJson);
           _imagem_nova.date = _imagem.date;
           log(_imagem.toString()+_imagem_nova.toString());
           setState(() {
@@ -230,7 +271,8 @@ class _InfoScreenState extends State<InfoScreen> {
       );
     }
     else{
-      return null;
+      log("deu este");
+      return Container();
     }
   }
 

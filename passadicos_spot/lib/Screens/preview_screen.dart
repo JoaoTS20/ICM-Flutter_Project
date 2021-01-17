@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
+import 'package:passadicos_spot/Classes/sign_in.dart';
 import 'package:passadicos_spot/Screens/navigation_screen.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
@@ -37,11 +38,10 @@ class _PreviewScreenState extends State<PreviewScreen> {
     List<String> split_filename = fileName.split(".");
     log(fileName);
     fileName = new DateFormat("yyyy_MM_dd_HH_mm_ss").format(new DateTime.now())
-        + '.' + split_filename[split_filename.length-1];
-    //TODO: somar username
+        +"_"+username+ '.' + split_filename[split_filename.length-1];
     log(fileName);
 
-
+    //Enviar imagem
     StorageReference firebaseStorageRef =
     FirebaseStorage.instance.ref().child('$fileName');
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_img);
@@ -51,10 +51,9 @@ class _PreviewScreenState extends State<PreviewScreen> {
     );
   }
   Future uploadPostToFirebase(BuildContext context, dynamic link,Position pos) async {
-    //TODO: get user
     GeoPoint point = new GeoPoint(pos.latitude, pos.longitude);
     Timestamp timestamp = new Timestamp.fromDate(DateTime.now());
-    Imagem post = new Imagem(myController.text,"",link,"TODO:GETUSER",new List<String>(),point,timestamp);
+    Imagem post = new Imagem(myController.text,"",link,username,new List<String>(),point,timestamp);
     log(post.toString());
     await Firestore.instance
         .collection("Imagens")
