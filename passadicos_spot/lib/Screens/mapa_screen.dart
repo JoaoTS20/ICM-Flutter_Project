@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:io';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,6 +24,7 @@ class _MapaWidgetState extends State<MapaScreen>{
   bool percorrer=false;
   int distancia=0;
   String sentido;
+  Set<Marker> markerlist = new HashSet();
   
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
@@ -32,14 +34,34 @@ class _MapaWidgetState extends State<MapaScreen>{
   }
 
   Set<Marker> _setMarkers(){
-    Set<Marker> markerlist = new HashSet();
+    markerlist = new HashSet();
+    FirebaseFirestore.instance.collection('Imagens').get().then((value) => initializeMarkers(value.docs));
     final String markerIdVal = 'marker_id$marker_id';
     Marker marker = new Marker(
         markerId: MarkerId(markerIdVal),
         position: const LatLng(40.9932033,-8.2113233)
     );
     markerlist.add(marker);
+    marker_id++;
     return markerlist;
+  }
+
+  void initializeMarkers(List<QueryDocumentSnapshot> docs){
+    for(var doc in docs){
+      GeoPoint loc =  doc.data()["location"];
+      log(doc.data()["username"]);
+      final String markerIdVal = 'marker_id$marker_id';
+      double lat = loc.latitude;
+      double lon = loc.longitude;
+      Marker marker = new Marker(
+          markerId: MarkerId(markerIdVal),
+          position: LatLng(lat,lon)
+      );
+      markerlist.add(marker);
+      marker_id++;
+    }
+    log("acabei");
+    setState((){});
   }
 
   Set<Polyline> _setPolylines(){
@@ -59,8 +81,16 @@ class _MapaWidgetState extends State<MapaScreen>{
     return image;
   }
 
+
+  @override
+  void initState() {
+    _setMarkers();
+  }
+
   @override
   Widget build(BuildContext context) {
+    //_setMarkers();
+    log(markerlist.toString());
     return Container(
       child: Scaffold(
         body: Stack(
@@ -74,7 +104,7 @@ class _MapaWidgetState extends State<MapaScreen>{
         target: _center,
         zoom: 11.0,
     ),
-            markers: _setMarkers(),
+            markers: markerlist,
             polylines: _setPolylines(),
       ),
         /*floatingActionButton: Align(
@@ -129,6 +159,7 @@ class _MapaWidgetState extends State<MapaScreen>{
                    // Navigator.push(context,MaterialPageRoute(builder: (context) => CameraScreen()));
                     _imgFromCamera().then(
                             (image) => {
+                              if(image!=null)
                               Navigator.push(context,MaterialPageRoute(builder: (context) => PreviewScreen(image)))
                             }
                     );
