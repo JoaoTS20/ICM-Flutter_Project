@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:passadicos_spot/Classes/Post.dart';
+import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:passadicos_spot/Screens/navigation_screen.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
@@ -54,7 +54,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
     //TODO: get user
     GeoPoint point = new GeoPoint(pos.latitude, pos.longitude);
     Timestamp timestamp = new Timestamp.fromDate(DateTime.now());
-    Post post = new Post("id",myController.text,"",link,"TODO:GETUSER",new List<String>(),point,timestamp);
+    Imagem post = new Imagem(myController.text,"",link,"TODO:GETUSER",new List<String>(),point,timestamp);
     log(post.toString());
     await Firestore.instance
         .collection("Imagens")

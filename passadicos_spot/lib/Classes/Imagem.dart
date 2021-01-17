@@ -1,14 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Imagem{
-  final String description;
-  final String especialista;
-  final String photoURL;
-  final String username;
-  final List<String> animaisIdentificados;
-  final GeoPoint location;
-  final DateTime date;
-  final DocumentReference reference;
+  String description;
+  String especialista;
+  String photoURL;
+  String username;
+  List<String> animaisIdentificados;
+  GeoPoint location;
+  DateTime date;
+  Timestamp dateJson;
+  DocumentReference reference;
+
+  Imagem(String desc, String esp, String purl, String user, List<String> an, GeoPoint location, Timestamp date){
+    this.description = desc;
+    this.especialista = esp;
+    this.photoURL = purl;
+    this.username = user;
+    this.animaisIdentificados = an;
+    this.location = location;
+    this.dateJson = date;
+  }
+
+
+  Map<String, dynamic> toJson() {
+    return {
+      "description":description,
+      "especialista":especialista,
+      "photoURL":photoURL,
+      "username": username,
+      "animaisIdentificados":animaisIdentificados,
+      "location":location,
+      "date":dateJson
+    };
+  }
+
 
   Imagem.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['description'] != null),
