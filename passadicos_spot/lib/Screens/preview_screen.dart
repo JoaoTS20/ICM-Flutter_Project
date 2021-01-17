@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:passadicos_spot/Classes/Post.dart';
 import 'package:passadicos_spot/Screens/navigation_screen.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +25,7 @@ class PreviewScreen extends StatefulWidget {
 
 class _PreviewScreenState extends State<PreviewScreen> {
   File _img;
+  final myController = TextEditingController();
   _PreviewScreenState(File f){
     _img = f;
   }
@@ -38,7 +41,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
     //TODO: somar username
     log(fileName);
 
-    /*
+
     StorageReference firebaseStorageRef =
     FirebaseStorage.instance.ref().child('$fileName');
     StorageUploadTask uploadTask = firebaseStorageRef.putFile(_img);
@@ -46,10 +49,18 @@ class _PreviewScreenState extends State<PreviewScreen> {
     taskSnapshot.ref.getName().then(
           (value) => uploadPostToFirebase(context,baseURL+value,userLocation),
     );
-     */
   }
   Future uploadPostToFirebase(BuildContext context, dynamic link,Position pos) async {
-    //TODO: Fazer função pra enviar isto
+    //TODO: get user
+    GeoPoint point = new GeoPoint(pos.latitude, pos.longitude);
+    Timestamp timestamp = new Timestamp.fromDate(DateTime.now());
+    Post post = new Post("id",myController.text,"",link,"TODO:GETUSER",new List<String>(),point,timestamp);
+    log(post.toString());
+    await Firestore.instance
+        .collection("Imagens")
+        .doc()
+        .set(post.toJson());
+    log("post done");
   }
   @override
   Widget build(BuildContext context) {
@@ -62,7 +73,9 @@ class _PreviewScreenState extends State<PreviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Image.file(File(_img.path)),
-              TextField(),
+              TextField(
+                controller: myController,
+              ),
               Align(alignment: Alignment.centerRight,child:RaisedButton(
                 onPressed: () async {
                     log("it's all coming together");
