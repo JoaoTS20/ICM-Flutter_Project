@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:intl/intl.dart';
 import 'package:passadicos_spot/Classes/sign_in.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'navigation_screen.dart';
 
 final f = new DateFormat('yyyy-MM-dd hh:mm');
@@ -215,6 +216,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                 Card(
                                   child: ListTile(title: Text("Animais Identificados") ,subtitle: Text(_imagem.animaisIdentificados.toString())),
                                 ),
+                                getQrCode(),
                                 getEditButton()
                               ],
                             ),
@@ -242,7 +244,13 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 
 
-
+ Widget getQrCode(){
+   return QrImage(
+     data: _imagem.reference.id,
+     version: QrVersions.auto,
+     size: 200.0,
+   );
+ }
 
 
   Widget getEditButton(){

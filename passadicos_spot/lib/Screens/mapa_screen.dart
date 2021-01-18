@@ -8,6 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:passadicos_spot/Classes/RouteInfo.dart';
 import 'package:passadicos_spot/Screens/preview_screen.dart';
+import 'package:passadicos_spot/Screens/qrcodereader_screen.dart';
+import 'navigation_screen.dart';
 
 
 
@@ -163,6 +165,16 @@ class _MapaWidgetState extends State<MapaScreen>{
                               Navigator.push(context,MaterialPageRoute(builder: (context) => PreviewScreen(image)))
                             }
                     );
+                  },
+                  tooltip: 'Add_Image',
+                  child: Icon(Icons.add),
+                ),
+                FloatingActionButton(
+                  heroTag: "f3",
+                  onPressed: () {
+                    //Navigator.push(context,MaterialPageRoute(builder: (context) => QRReaderView()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => QRReaderView()));
+
                   },
                   tooltip: 'Add_Image',
                   child: Icon(Icons.add),
