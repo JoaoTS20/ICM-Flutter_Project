@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:passadicos_spot/Classes/RouteInfo.dart';
@@ -27,6 +28,7 @@ class _MapaWidgetState extends State<MapaScreen>{
   int distancia=0;
   String sentido;
   Set<Marker> markerlist = new HashSet();
+  Geolocator geolocator;
   
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
@@ -87,6 +89,7 @@ class _MapaWidgetState extends State<MapaScreen>{
   @override
   void initState() {
     _setMarkers();
+    geolocator = Geolocator()..forceAndroidLocationManager;
   }
 
   @override
@@ -197,9 +200,6 @@ class _MapaWidgetState extends State<MapaScreen>{
     );
   }
 
-  
-
-
 void _percorrerBotton() {
   setState(() {
     if (!percorrer) {
@@ -209,8 +209,10 @@ void _percorrerBotton() {
     }
   });
 }
-}
-Widget build_text_percorrer() {
 
+  Future<Widget> build_text_percorrer() async{
+    //TODO: aqui fazeres os teus cálculos bonitos
+    Position userLocation = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
+  }
 }
