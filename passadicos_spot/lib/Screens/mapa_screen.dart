@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:passadicos_spot/Classes/RouteInfo.dart';
 import 'package:passadicos_spot/Screens/preview_screen.dart';
 import 'package:passadicos_spot/Screens/qrcodereader_screen.dart';
+import 'package:passadicos_spot/Widgets/MapPin.dart';
 import 'navigation_screen.dart';
 
 
@@ -29,6 +31,7 @@ class _MapaWidgetState extends State<MapaScreen>{
   String sentido;
   Set<Marker> markerlist = new HashSet();
   Geolocator geolocator;
+  Imagem _imagem_atual = null;
   
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
@@ -52,14 +55,19 @@ class _MapaWidgetState extends State<MapaScreen>{
 
   void initializeMarkers(List<QueryDocumentSnapshot> docs){
     for(var doc in docs){
-      GeoPoint loc =  doc.data()["location"];
-      log(doc.data()["username"]);
+      final Imagem i = Imagem.fromSnapshot(doc);
+      GeoPoint loc =  i.location;
       final String markerIdVal = 'marker_id$marker_id';
       double lat = loc.latitude;
       double lon = loc.longitude;
       Marker marker = new Marker(
           markerId: MarkerId(markerIdVal),
-          position: LatLng(lat,lon)
+          position: LatLng(lat,lon),
+          onTap:(){
+            setState(() {
+              _imagem_atual = i;
+            });
+      },
       );
       markerlist.add(marker);
       marker_id++;
@@ -181,7 +189,8 @@ class _MapaWidgetState extends State<MapaScreen>{
                   },
                   tooltip: 'Add_Image',
                   child: Icon(Icons.add),
-                )
+                ),
+
               ],
             ),
           ),
@@ -194,7 +203,7 @@ class _MapaWidgetState extends State<MapaScreen>{
         )
       ),
 
-      ] 
+            MapPin(imageInfo: _imagem_atual,)]
       )
     )
     );
