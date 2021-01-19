@@ -245,11 +245,11 @@ class _InfoScreenState extends State<InfoScreen> {
 
 
  Widget getQrCode(){
-   return QrImage(
+   return Center( child: QrImage(
      data: _imagem.reference.id,
      version: QrVersions.auto,
      size: 200.0,
-   );
+   ));
  }
 
 

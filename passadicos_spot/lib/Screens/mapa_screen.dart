@@ -12,7 +12,7 @@ import 'package:passadicos_spot/Classes/RouteInfo.dart';
 import 'package:passadicos_spot/Screens/preview_screen.dart';
 import 'package:passadicos_spot/Screens/qrcodereader_screen.dart';
 import 'package:passadicos_spot/Widgets/MapPin.dart';
-import 'navigation_screen.dart';
+import 'dart:math' as mat;
 
 
 
@@ -27,7 +27,8 @@ enum Sentidos { FIRST, SECOND}
 class _MapaWidgetState extends State<MapaScreen>{
   GoogleMapController mapController;
   bool percorrer=false;
-  int distancia=0;
+  int tempomedio=150;
+  double MaxDistancia=mat.sqrt(mat.pow(-8.2113233 - -8.1767019, 2) + mat.pow(40.9932033 - 40.9529338, 2));
   String sentido;
   Set<Marker> markerlist = new HashSet();
   Geolocator geolocator;
@@ -187,8 +188,8 @@ class _MapaWidgetState extends State<MapaScreen>{
                     Navigator.push(context,MaterialPageRoute(builder: (context) => QRReaderView()));
 
                   },
-                  tooltip: 'Add_Image',
-                  child: Icon(Icons.add),
+                  tooltip: 'QR_CODE',
+                  child: Icon(Icons.qr_code),
                 ),
 
               ],
@@ -199,7 +200,19 @@ class _MapaWidgetState extends State<MapaScreen>{
         child: Positioned(
         top: 60,
         left: 20,
-        child: Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
+        child: FutureBuilder<String>(
+          future: build_text_percorrer(), // function where you call your api
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {  // AsyncSnapshot<Your object type>
+            if( snapshot.connectionState == ConnectionState.waiting){
+              return  Container(margin:EdgeInsets.all(8.0), child: LinearProgressIndicator());
+            }else{
+              if (snapshot.hasError)
+                return Center(child: Text('Error: ${snapshot.error}'));
+              else
+                return Text(snapshot.data);   //:- get your object which is pass from your downloadData() function
+            }
+          },
+        )//Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
         )
       ),
 
@@ -219,9 +232,25 @@ void _percorrerBotton() {
   });
 }
 
-  Future<Widget> build_text_percorrer() async{
-    //TODO: aqui fazeres os teus cálculos bonitos
+  Future<String> build_text_percorrer() async{
     Position userLocation = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    return Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
+    if(sentido=='Areinho -> Espiunca'){
+     LatLng fim = new LatLng(40.9932033, -8.2113233);
+     double dis= mat.sqrt(mat.pow(fim.longitude - userLocation.longitude, 2) + mat.pow(fim.latitude - userLocation.latitude, 2));
+     log("DistanciaFalta: "+dis.toString());
+     double temporestante = (dis * tempomedio) / MaxDistancia;
+     //return Text("Faltam cerca de "+ temporestante.toString()+" minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
+     return "Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 )
+    }
+    else{
+      LatLng fim = new LatLng(40.9529338, -8.1767019);
+      double dis= mat.sqrt(mat.pow(fim.longitude - userLocation.longitude, 2) + mat.pow(fim.latitude - userLocation.latitude, 2));
+      log("DistanciaFalta: "+dis.toString());
+      double temporestante = (dis * tempomedio) / MaxDistancia;
+      log("TempoRestante: "+ temporestante.toString()+" m");
+      return"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//Future.value(Text("Faltam cerca de "+ temporestante.toString()+" minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), ));
+    }
+
+
   }
 }

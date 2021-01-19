@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:passadicos_spot/Screens/info_screen.dart';
 
-
 class MapPin extends StatefulWidget {
 
   Imagem imageInfo;
