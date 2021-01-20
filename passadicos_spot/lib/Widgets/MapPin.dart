@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
 import 'package:passadicos_spot/Screens/info_screen.dart';
@@ -44,26 +45,44 @@ class MapPinState extends State<MapPin> {
               ]
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
                 width: 50, height: 50,
-                margin: EdgeInsets.only(left: 10),
+                //margin: EdgeInsets.only(left: 10),
                 //child: ClipOval(child: Image.asset(widget.currentlySelectedPin.avatarPath, fit: BoxFit.cover )),
               ),
               Expanded(
+                //TODO: Tirar aquele Espaço extra da Esquerda e fazer o coiso desaparecer depois de clicar
                 child: Container(
-                  margin: EdgeInsets.only(left: 20),
-                  child: Column(
+                  child:FutureBuilder<dynamic>(
+                    future: getImage(widget.imageInfo.photoURL), // function where you call your api
+                    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {  // AsyncSnapshot<Your object type>
+                      if( snapshot.connectionState == ConnectionState.waiting){
+                        return  Container(margin:EdgeInsets.all(8.0), child: LinearProgressIndicator());
+                      }else{
+                        if (snapshot.hasError)
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        else
+                          return ListTile(leading: Image.network(snapshot.data), title: Text(widget.imageInfo.username), subtitle: Text(widget.imageInfo.description));   //:- get your object which is pass from your downloadData() function
+                      }
+                    },
+                  ),
+
+
+                  //ListTile(leading: Image(image: AssetImage("assets/pa_logo.png")), title: Text(widget.imageInfo.username), subtitle: Text(widget.imageInfo.description))
+
+                  /*Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
+                      Text(widget.imageInfo.username + ": "+ widget.imageInfo.description)
                       //Text(widget.currentlySelectedPin.locationName, style: TextStyle(color: widget.currentlySelectedPin.labelColor)),
                       //Text('Latitude: ${widget.currentlySelectedPin.location.latitude.toString()}', style: TextStyle(fontSize: 12, color: Colors.grey)),
                       //Text('Longitude: ${widget.currentlySelectedPin.location.longitude.toString()}', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
-                  ),
+                  ),*/
                 ),
               ),
             ],
@@ -74,4 +93,9 @@ class MapPinState extends State<MapPin> {
     );
   }
 
+}
+Future<dynamic> getImage(String l) async {
+  FirebaseStorage _storage = FirebaseStorage.instance;
+  StorageReference _ref =  await _storage.getReferenceFromUrl(l);
+  return _ref.getDownloadURL();
 }

@@ -28,7 +28,7 @@ class _LoginPageState extends State<SignInScreen>{
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlutterLogo(size: 150),
+              Image(image: AssetImage("assets/pa_logo.png"), height: 150.0),
               SizedBox(height: 50),
               _signInButton(),
             ],
@@ -43,7 +43,7 @@ class _LoginPageState extends State<SignInScreen>{
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
-            print("SIgn in");
+            print("Sign in");
             print(tipo_user);
             if(tipo_user==null){
               return OptionScreen();

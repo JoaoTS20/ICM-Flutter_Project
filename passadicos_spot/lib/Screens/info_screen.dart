@@ -52,7 +52,7 @@ class _InfoScreenState extends State<InfoScreen> {
             if (editing){
               return Scaffold(
                   resizeToAvoidBottomPadding: false,
-                  appBar: AppBar(
+                  appBar: AppBar(//TODO: TALVEZ FAZER UM BACK MANUAL PARA O NAVIGATION _SCREEN DESTE MODO NÃO TEMOS PROBLEMA
                     automaticallyImplyLeading: true,
                   ),
                   body:Container(

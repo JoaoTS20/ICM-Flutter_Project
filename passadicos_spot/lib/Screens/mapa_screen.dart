@@ -233,6 +233,7 @@ void _percorrerBotton() {
 }
 
   Future<String> build_text_percorrer() async{
+    //TODO: NÃO está a atualizar a localização quando move
     Position userLocation = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     if(sentido=='Areinho -> Espiunca'){
      LatLng fim = new LatLng(40.9932033, -8.2113233);

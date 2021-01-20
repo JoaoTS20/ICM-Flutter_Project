@@ -65,6 +65,7 @@ flutter:
      - google_logo.png
      - passadico_do_paiva_fundo.jpg
      - passadicos_paiva.jpg
+     - pa_logo.png
      #- images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
