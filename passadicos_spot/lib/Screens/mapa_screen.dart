@@ -209,7 +209,7 @@ class _MapaWidgetState extends State<MapaScreen>{
               if (snapshot.hasError)
                 return Center(child: Text('Error: ${snapshot.error}'));
               else
-                return Text(snapshot.data);   //:- get your object which is pass from your downloadData() function
+                return Text(snapshot.data,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );   //:- get your object which is pass from your downloadData() function
             }
           },
         )//Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )

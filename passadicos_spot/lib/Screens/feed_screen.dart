@@ -6,14 +6,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:passadicos_spot/Classes/Imagem.dart';
+import 'package:passadicos_spot/Classes/sign_in.dart';
 import 'package:passadicos_spot/Screens/info_screen.dart';
+import 'package:passadicos_spot/Screens/navigation_screen.dart';
+
 
 class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
       home: FeedPage()
     );
   }

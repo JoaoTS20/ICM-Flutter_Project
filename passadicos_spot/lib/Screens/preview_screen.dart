@@ -71,11 +71,18 @@ class _PreviewScreenState extends State<PreviewScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.file(File(_img.path)),
+  
+              Image.file(File(_img.path),                                  // width: 300,
+                                  height: 400,
+                                  fit:BoxFit.fill),
               TextField(
                 controller: myController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Descrição',
+                  ),
               ),
-              Align(alignment: Alignment.centerRight,child:RaisedButton(
+              Align(alignment: Alignment.center,child:RaisedButton(
                 onPressed: () async {
                     log("it's all coming together");
                     Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
@@ -88,12 +95,12 @@ class _PreviewScreenState extends State<PreviewScreen> {
                   padding: const EdgeInsets.all(2.0),
                   child: Text(
                     'Publicar',
-                    style: TextStyle(fontSize: 10, color: Colors.white),
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                    borderRadius: BorderRadius.circular(40)),
               )
               )
             ],
