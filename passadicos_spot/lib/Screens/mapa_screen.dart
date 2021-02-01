@@ -33,6 +33,7 @@ class _MapaWidgetState extends State<MapaScreen>{
   Set<Marker> markerlist = new HashSet();
   Geolocator geolocator;
   Imagem _imagem_atual = null;
+
   
   int marker_id = 0;
   final LatLng _center = const LatLng(40.9932033,-8.2113233);
@@ -200,16 +201,16 @@ class _MapaWidgetState extends State<MapaScreen>{
         child: Positioned(
         top: 60,
         left: 20,
-        child: FutureBuilder<String>(
-          future: build_text_percorrer(), // function where you call your api
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {  // AsyncSnapshot<Your object type>
+        child: StreamBuilder<Position>(
+          stream: geolocator.getPositionStream(), // function where you call your api
+          builder: (BuildContext context, AsyncSnapshot<Position> snapshot) {  // AsyncSnapshot<Your object type>
             if( snapshot.connectionState == ConnectionState.waiting){
               return  Container(margin:EdgeInsets.all(8.0), child: LinearProgressIndicator());
             }else{
               if (snapshot.hasError)
                 return Center(child: Text('Error: ${snapshot.error}'));
               else
-                return Text(snapshot.data,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );   //:- get your object which is pass from your downloadData() function
+                return Text(build_text_percorrer(snapshot.data),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );   //:- get your object which is pass from your downloadData() function
             }
           },
         )//Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
@@ -232,16 +233,17 @@ void _percorrerBotton() {
   });
 }
 
-  Future<String> build_text_percorrer() async{
-    //TODO: NÃO está a atualizar a localização quando move
-    Position userLocation = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  String build_text_percorrer(Position userLocation) {
     if(sentido=='Areinho -> Espiunca'){
-     LatLng fim = new LatLng(40.9932033, -8.2113233);
-     double dis= mat.sqrt(mat.pow(fim.longitude - userLocation.longitude, 2) + mat.pow(fim.latitude - userLocation.latitude, 2));
-     log("DistanciaFalta: "+dis.toString());
-     double temporestante = (dis * tempomedio) / MaxDistancia;
+
      //return Text("Faltam cerca de "+ temporestante.toString()+" minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
-     return "Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 )
+       LatLng fim = new LatLng(40.9932033, -8.2113233);
+       double dis= mat.sqrt(mat.pow(fim.longitude - userLocation.longitude, 2) + mat.pow(fim.latitude - userLocation.latitude, 2));
+       log("DistanciaFalta: "+dis.toString());
+       double temporestante = (dis * tempomedio) / MaxDistancia;
+       return "Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";
+
+       //"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 )
     }
     else{
       LatLng fim = new LatLng(40.9529338, -8.1767019);
