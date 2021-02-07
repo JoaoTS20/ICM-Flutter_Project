@@ -54,7 +54,6 @@ class MapPinState extends State<MapPin> {
                 //child: ClipOval(child: Image.asset(widget.currentlySelectedPin.avatarPath, fit: BoxFit.cover )),
               ),
               Expanded(
-                //TODO: Tirar aquele Espaço extra da Esquerda e fazer o coiso desaparecer depois de clicar
                 child: Container(
                   child:FutureBuilder<dynamic>(
                     future: getImage(widget.imageInfo.photoURL), // function where you call your api

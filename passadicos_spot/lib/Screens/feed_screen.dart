@@ -16,6 +16,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
       home: FeedPage()
     );
   }
@@ -43,7 +44,7 @@ class _FeedPageState extends State<FeedPage>{
   Widget _buildBody(BuildContext context) {
     // TODO: get actual snapshot from Cloud Firestore
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Imagens').snapshots(), //Talvez passar para Variável global
+      stream: Firestore.instance.collection('Imagens').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
@@ -74,7 +75,7 @@ class _FeedPageState extends State<FeedPage>{
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: InkWell(
-                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))),//print("ciao"), Função Para Depois ver a página mais em Detalhe.
+                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                     children: <Widget>[
@@ -104,26 +105,6 @@ class _FeedPageState extends State<FeedPage>{
       },
     );
 
-    //print("isto");
-    //print(urlImage);
-    //StorageReference _ref =   _storage.getReferenceFromUrl(l) as StorageReference;
-    //Image.network(_ref.getDownloadURL().toString());
-    //return new Text(imagem.toString());
-    /*return Padding(
-      key: ValueKey(imagem.username),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Text(imagem.toString()),
-          trailing: Text(imagem.toString()),
-          onTap: () => print(imagem),
-        ),
-      ),
-    );*/
   }
 
 }

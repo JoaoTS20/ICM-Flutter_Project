@@ -33,7 +33,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
   String baseURL = "gs://icm-trabalho1.appspot.com/";
 
   Future uploadImageToFirebase(BuildContext context,Position userLocation) async {
-    log("REEEEEEE"+userLocation.latitude.toString()+userLocation.longitude.toString());
+    log("LOC: "+userLocation.latitude.toString()+userLocation.longitude.toString());
     String fileName = basename(_img.path);
     List<String> split_filename = fileName.split(".");
     log(fileName);
@@ -59,7 +59,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
         .collection("Imagens")
         .doc()
         .set(post.toJson());
-    log("post done");
+    log("Post Done");
   }
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
               ),
               Align(alignment: Alignment.center,child:RaisedButton(
                 onPressed: () async {
-                    log("it's all coming together");
+                    log("It's all coming together");
                     Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
                     Position userLocation = await geoLocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                     uploadImageToFirebase(context,userLocation).whenComplete(() => log("upload done"));

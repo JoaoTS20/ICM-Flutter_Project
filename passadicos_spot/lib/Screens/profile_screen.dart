@@ -117,7 +117,7 @@ class _FeedPageState extends State<FeedPart>{
               child: Card(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
                 child: InkWell(
-                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))), //Função Para Depois ver a página mais em Detalhe.
+                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => InfoScreen(imagem))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                     children: <Widget>[
@@ -147,26 +147,6 @@ class _FeedPageState extends State<FeedPart>{
       },
     );
 
-    //print("isto");
-    //print(urlImage);
-    //StorageReference _ref =   _storage.getReferenceFromUrl(l) as StorageReference;
-    //Image.network(_ref.getDownloadURL().toString());
-    //return new Text(imagem.toString());
-    /*return Padding(
-      key: ValueKey(imagem.username),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Text(imagem.toString()),
-          trailing: Text(imagem.toString()),
-          onTap: () => print(imagem),
-        ),
-      ),
-    );*/
   }
 
 }

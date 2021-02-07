@@ -74,7 +74,7 @@ class _MapaWidgetState extends State<MapaScreen>{
       markerlist.add(marker);
       marker_id++;
     }
-    log("acabei");
+    log("Done");
     setState((){});
   }
 
@@ -117,7 +117,7 @@ class _MapaWidgetState extends State<MapaScreen>{
           myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
         target: _center,
-        zoom: 11.0,
+        zoom: 12.0,
     ),
             markers: markerlist,
             polylines: _setPolylines(),
@@ -127,7 +127,7 @@ class _MapaWidgetState extends State<MapaScreen>{
         onPressed: (null),
         tooltip: 'Add_Image',
         child: Icon(Icons.add))
-        ,alignment: Alignment.bottomLeft 
+        ,alignment: Alignment.bottomLeft
       ),
       *///floatingActionButtonLocation:
               //FloatingActionButtonLocation.startDocked,
@@ -213,7 +213,7 @@ class _MapaWidgetState extends State<MapaScreen>{
                 return Text(build_text_percorrer(snapshot.data),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );   //:- get your object which is pass from your downloadData() function
             }
           },
-        )//Text("Faltam cerca de x minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), )
+        )
         )
       ),
 
@@ -236,14 +236,13 @@ void _percorrerBotton() {
   String build_text_percorrer(Position userLocation) {
     if(sentido=='Areinho -> Espiunca'){
 
-     //return Text("Faltam cerca de "+ temporestante.toString()+" minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), );
        LatLng fim = new LatLng(40.9932033, -8.2113233);
        double dis= mat.sqrt(mat.pow(fim.longitude - userLocation.longitude, 2) + mat.pow(fim.latitude - userLocation.latitude, 2));
        log("DistanciaFalta: "+dis.toString());
        double temporestante = (dis * tempomedio) / MaxDistancia;
        return "Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";
 
-       //"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 )
+       //"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";
     }
     else{
       LatLng fim = new LatLng(40.9529338, -8.1767019);
@@ -251,7 +250,7 @@ void _percorrerBotton() {
       log("DistanciaFalta: "+dis.toString());
       double temporestante = (dis * tempomedio) / MaxDistancia;
       log("TempoRestante: "+ temporestante.toString()+" m");
-      return"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";//Future.value(Text("Faltam cerca de "+ temporestante.toString()+" minutos\nPara Completar o Percurso",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18 ), ));
+      return"Faltam cerca de "+ temporestante.round().toString()+" minutos\nPara Completar o Percurso";
     }
 
 
